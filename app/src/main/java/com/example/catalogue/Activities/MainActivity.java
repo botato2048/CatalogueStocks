@@ -8,11 +8,16 @@ import android.os.Bundle;
 
 import com.android.volley.RequestQueue;
 
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.catalogue.Data.recycleViewAdapter;
 import com.example.catalogue.Model.StockMarket;
 import com.example.catalogue.R;
 import com.example.catalogue.Util.prefs;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
 
     public List<StockMarket> getStocks(String searchTerm) {
         StockList.clear();
-         
+
+        String myurl = "https://quotient.p.rapidapi.com/equity/intraday?symbol=" + searchTerm + "&interval=1&from=2022-01-01 10:00&to=2022-12-25 10:00&adjust=false";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(myurl, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject JsObject =response.getJSONObject("Search");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        })
+
+
     }
 }

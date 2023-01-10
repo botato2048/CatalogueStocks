@@ -55,49 +55,46 @@ public class MainActivity extends AppCompatActivity {
 
         StockRecycleViewAdapter = new recycleViewAdapter(this, StockList);
         recycleView.setAdapter(StockRecycleViewAdapter);
+        StockRecycleViewAdapter.notifyDataSetChanged();
+
     }
 
     public List<StockMarket> getStocks(String searchTerm) {
         StockList.clear();
 
-        String myurl = "https://quotient.p.rapidapi.com/equity/intraday?symbol=" + searchTerm + "&interval=60&from=2022-12-01 10:00&to=2022-12-25 10:00&adjust=false";
+        String myurl = "https://quotient.p.rapidapi.com/equity/intraday?symbol=" + searchTerm + "&interval=1&from=2022-01-01 10:00&to=2022-12-25 10:00&adjust=false";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(myurl, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.d("JSON", "message=" + response);
-
+                Log.d("String", "Sucess");
                 for (int a = 0; a < response.length(); a++) {
                     try {
-                        JSONArray StockArray = new JSONArray();
-
-
-                        StockArray = response.getJSONArray(a);
+                        JSONArray StockArray = response.getJSONArray(a);
 
                         for (int i = 0; i < StockArray.length(); i++) {
 
-                            JSONObject StocksObj = new JSONObject();
-
-                            StocksObj = StockArray.getJSONObject(i);
+                            JSONObject StocksObj  = StockArray.getJSONObject(i);
 
                             StockMarket stockMarket = new StockMarket();
 
-                         //   stockMarket.setDate(StocksObj.getString("Date"));
+                               stockMarket.setDate(StocksObj.getString("Date"));
 
-                          //  stockMarket.setOpen(StocksObj.getString("Open"));
+                              stockMarket.setOpen(String.valueOf(StocksObj.getInt("Open")));
 
-                          //  stockMarket.setClose(StocksObj.getString("Close"));
+                              stockMarket.setClose(String.valueOf(StocksObj.getInt("Close")));
 
                             String Diff = "";
                             int op = 0, clo = 0;
 
-                            op = Integer.parseInt(StocksObj.getString("Open"));
+                            op = Integer.parseInt(String.valueOf(StocksObj.getInt("Open")));
 
 
-                            clo = Integer.parseInt(StocksObj.getString("Close"));
+                            clo = Integer.parseInt(String.valueOf(StocksObj.getInt("Close")));
 
                             Diff = String.valueOf(op - clo);
 
-                        //    stockMarket.setDifference(Diff);
+                               stockMarket.setDifference(Diff);
 
                             StockList.add(stockMarket);
                         }
@@ -111,13 +108,14 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                ///bcbcbcbc
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("X-RapidAPI-Host", "quotient.p.rapidapi.com");
-                params.put("X-RapidAPI-Key", "ea24bc548bmsh093922019c0de63p100fe6jsn138798df0854");
+                params.put("X-RapidAPI-Key", "84a387d078mshc17a438839ef680p19393bjsn1987a8bb2c0a");
                 return params;
 
             }

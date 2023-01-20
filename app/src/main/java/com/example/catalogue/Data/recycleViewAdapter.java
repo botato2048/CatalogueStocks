@@ -3,9 +3,11 @@ package com.example.catalogue.Data;
 import android.content.Context;
 
 import com.example.catalogue.Model.StockMarket;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,11 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull recycleViewAdapter.ViewHolder holder, int position) {
+        StockMarket stocks = stockList.get(position);
+        holder.txtclose.setText(stocks.getClose());
+        holder.txtOpen.setText(stocks.getOpen());
+        holder.txtDate.setText(stocks.getDate());
+        holder.txtdifference.setText(stocks.getDifference());
 
     }
 
@@ -42,6 +49,11 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txtDate;
+        TextView txtOpen;
+        TextView txtclose;
+        TextView txtdifference;
+
 
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);

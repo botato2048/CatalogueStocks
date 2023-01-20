@@ -66,23 +66,20 @@ public class MainActivity extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(myurl, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d("JSON", "message=" + response);
-                Log.d("String", "Sucess");
-                for (int a = 0; a < response.length(); a++) {
-                    try {
-                        JSONArray StockArray = response.getJSONArray(a);
 
-                        for (int i = 0; i < StockArray.length(); i++) {
 
-                            JSONObject StocksObj  = StockArray.getJSONObject(i);
+                try {
 
+                        for (int i = 0; i < 5; i++) {
+
+                            JSONObject StocksObj  = response.getJSONObject(i);
                             StockMarket stockMarket = new StockMarket();
 
-                               stockMarket.setDate(StocksObj.getString("Date"));
+                            stockMarket.setDate(StocksObj.getString("Date"));
 
-                              stockMarket.setOpen(String.valueOf(StocksObj.getInt("Open")));
+                            stockMarket.setOpen(String.valueOf(StocksObj.getInt("Open")));
 
-                              stockMarket.setClose(String.valueOf(StocksObj.getInt("Close")));
+                            stockMarket.setClose(String.valueOf(StocksObj.getInt("Close")));
 
                             String Diff = "";
                             int op = 0, clo = 0;
@@ -94,16 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
                             Diff = String.valueOf(op - clo);
 
-                               stockMarket.setDifference(Diff);
-
+                            stockMarket.setDifference(Diff);
+                            Log.d("JSON", "message=" +stockMarket.getDate() );
                             StockList.add(stockMarket);
-                        }
+                       }
                         StockRecycleViewAdapter.notifyDataSetChanged();
 
-                    } catch (JSONException e) {
+                    }
+                        catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("X-RapidAPI-Host", "quotient.p.rapidapi.com");
-                params.put("X-RapidAPI-Key", "84a387d078mshc17a438839ef680p19393bjsn1987a8bb2c0a");
+                params.put("X-RapidAPI-Key", "661e78e685msh3c17fa133cecc7ep1a0986jsn6af533f94f00");
                 return params;
 
             }

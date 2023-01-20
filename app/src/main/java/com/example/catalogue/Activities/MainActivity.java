@@ -70,37 +70,37 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                        for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 5; i++) {
 
-                            JSONObject StocksObj  = response.getJSONObject(i);
-                            StockMarket stockMarket = new StockMarket();
+                        JSONObject StocksObj  = response.getJSONObject(i);
+                        StockMarket stockMarket = new StockMarket();
 
-                            stockMarket.setDate(StocksObj.getString("Date"));
+                        stockMarket.setDate(StocksObj.getString("Date"));
 
-                            stockMarket.setOpen(String.valueOf(StocksObj.getInt("Open")));
+                        stockMarket.setOpen(String.valueOf(StocksObj.getInt("Open")));
 
-                            stockMarket.setClose(String.valueOf(StocksObj.getInt("Close")));
+                        stockMarket.setClose(String.valueOf(StocksObj.getInt("Close")));
 
-                            String Diff = "";
-                            int op = 0, clo = 0;
+                        String Diff = "";
+                        int op = 0, clo = 0;
 
-                            op = Integer.parseInt(String.valueOf(StocksObj.getInt("Open")));
+                        op = Integer.parseInt(String.valueOf(StocksObj.getInt("Open")));
 
 
-                            clo = Integer.parseInt(String.valueOf(StocksObj.getInt("Close")));
+                        clo = Integer.parseInt(String.valueOf(StocksObj.getInt("Close")));
 
-                            Diff = String.valueOf(op - clo);
+                        Diff = String.valueOf(op - clo);
 
-                            stockMarket.setDifference(Diff);
-                            Log.d("JSON", "message=" +stockMarket.getDate() );
-                            StockList.add(stockMarket);
-                       }
-                        StockRecycleViewAdapter.notifyDataSetChanged();
-
+                        stockMarket.setDifference(Diff);
+                        Log.d("JSON", "message=" +stockMarket.getDate() );
+                        StockList.add(stockMarket);
                     }
-                        catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    StockRecycleViewAdapter.notifyDataSetChanged();
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("X-RapidAPI-Host", "quotient.p.rapidapi.com");
-                params.put("X-RapidAPI-Key", "661e78e685msh3c17fa133cecc7ep1a0986jsn6af533f94f00");
+                params.put("X-RapidAPI-Key", "4932b3a52fmshbd02a792c193ce2p1e6801jsn1f17900122f5");
                 return params;
 
             }

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.catalogue.R;
-
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.ViewHolder> {
@@ -29,34 +29,41 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
     @Override
     public recycleViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stock, parent, false);
-
         return new ViewHolder(view, context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull recycleViewAdapter.ViewHolder holder, int position) {
         StockMarket stocks = stockList.get(position);
-        holder.txtclose.setText(stocks.getClose());
-        holder.txtOpen.setText(stocks.getOpen());
-        holder.txtDate.setText(stocks.getDate());
-        holder.txtdifference.setText(stocks.getDifference());
+        holder.Close.setText(stocks.getClose());
+        holder.Open.setText(stocks.getOpen());
+        holder.Date.setText(stocks.getDate());
+        holder.difference.setText(stocks.getDifference());
+
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        return stockList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtDate;
-        TextView txtOpen;
-        TextView txtclose;
-        TextView txtdifference;
+        TextView Date;
+        TextView Open;
+        TextView Close;
+        TextView difference;
 
 
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
+            context = context;
+            Close = itemView.findViewById(R.id.txtclose);
+            Open = itemView.findViewById(R.id.txtOpen);
+            Date = itemView.findViewById(R.id.txtDate);
+            difference = itemView.findViewById(R.id.txtdifference);
+
         }
     }
 }

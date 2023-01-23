@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.catalogue.R;
-import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.ViewHolder> {
@@ -54,6 +53,8 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
         TextView Open;
         TextView Close;
         TextView difference;
+
+
 
 
         public ViewHolder(@NonNull View itemView, Context context) {

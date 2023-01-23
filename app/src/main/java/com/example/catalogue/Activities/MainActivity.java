@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         StockList = new ArrayList<>();
 
 
-        prefs prefs = new prefs(MainActivity.this);
-        String search = prefs.getSearch();
+        prefs Prefs = new prefs(MainActivity.this);
+        String search = Prefs.getSearch();
         StockList = getStocks(search);
 
         StockRecycleViewAdapter = new recycleViewAdapter(this, StockList);
@@ -74,20 +74,20 @@ public class MainActivity extends AppCompatActivity {
 
                         JSONObject StocksObj  = response.getJSONObject(i);
                         StockMarket stockMarket = new StockMarket();
-
+                        Log.d("String", "JLLO" + StocksObj);
                         stockMarket.setDate(StocksObj.getString("Date"));
 
-                        stockMarket.setOpen(String.valueOf(StocksObj.getInt("Open")));
+                        stockMarket.setOpen(String.valueOf(StocksObj.getDouble("Open")));
 
-                        stockMarket.setClose(String.valueOf(StocksObj.getInt("Close")));
+                        stockMarket.setClose(String.valueOf(StocksObj.getDouble("Close")));
 
                         String Diff = "";
-                        int op = 0, clo = 0;
+                        Double op = 0.0, clo = 0.0;
 
-                        op = Integer.parseInt(String.valueOf(StocksObj.getInt("Open")));
+                        op = Double.parseDouble(String.valueOf(StocksObj.getDouble("Open")));
 
 
-                        clo = Integer.parseInt(String.valueOf(StocksObj.getInt("Close")));
+                        clo = Double.parseDouble(String.valueOf(StocksObj.getDouble("Close")));
 
                         Diff = String.valueOf(op - clo);
 
@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("X-RapidAPI-Host", "quotient.p.rapidapi.com");
-                params.put("X-RapidAPI-Key", "4932b3a52fmshbd02a792c193ce2p1e6801jsn1f17900122f5");
+                params.put("X-RapidAPI-Key", "c7a4cd7806msh52cad41bef43255p11a663jsnfe210e545175");
                 return params;
 
             }
